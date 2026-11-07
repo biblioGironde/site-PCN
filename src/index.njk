@@ -1,0 +1,23 @@
+---
+layout: base.njk
+---
+<section class="intro">
+  <h1>{{ site.title }}</h1>
+  <p>{{ site.description }}</p>
+</section>
+
+<h2>Actualités</h2>
+<ul class="liste-actualites">
+{% for item in collections.actualitesRecentes %}
+  <li>
+    <a href="{{ item.url }}">
+      {% if item.data.image %}<img src="{{ item.data.image }}" alt="">{% endif %}
+      <span class="date">{{ item.date | dateFr }}</span>
+      <strong>{{ item.data.title }}</strong>
+      {% if item.data.resume %}<span class="resume">{{ item.data.resume }}</span>{% endif %}
+    </a>
+  </li>
+{% else %}
+  <li>Aucune actualité pour le moment.</li>
+{% endfor %}
+</ul>
