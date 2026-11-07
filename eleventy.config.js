@@ -2,7 +2,7 @@ import { HtmlBasePlugin } from "@11ty/eleventy";
 
 export default function (eleventyConfig) {
   // Réécrit automatiquement les liens absolus (/css/..., /media/...) avec le
-  // préfixe du dépôt GitHub Pages (ex. /eleventy-test/). Le préfixe est passé
+  // préfixe du dépôt GitHub Pages (ex. /site-PCN/). Le préfixe est passé
   // au build par le workflow GitHub Actions (--pathprefix).
   eleventyConfig.addPlugin(HtmlBasePlugin);
 

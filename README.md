@@ -21,7 +21,7 @@ Petit site Eleventy (accueil + actualités + page « À propos ») publié sur G
 2. Dans le dépôt : **Settings → Pages → Source : GitHub Actions**.
 3. Relancer le workflow (onglet **Actions → Déploiement GitHub Pages → Run workflow**)
    si le premier push a eu lieu avant l'étape 2.
-4. Le site est disponible sur `https://<compte>.github.io/site-PCN/`.
+4. Le site est disponible sur `https://bibliogironde.github.io/site-PCN/`.
 
 ## 2. Tester Pages CMS
 
@@ -32,12 +32,11 @@ Petit site Eleventy (accueil + actualités + page « À propos ») publié sur G
 
 ## 3. Tester Sveltia CMS
 
-1. Dans `src/admin/config.yml`, remplacer `PROPRIETAIRE/NOM-DU-DEPOT`
-   (ex. `biblioGironde/site-PCN`), committer.
+1. `src/admin/config.yml` pointe déjà vers `biblioGironde/site-PCN`.
 2. Créer un jeton GitHub *fine-grained* : **Settings → Developer settings →
    Personal access tokens → Fine-grained tokens**, limité au dépôt, permission
    **Contents : Read and write**.
-3. Ouvrir `https://<compte>.github.io/site-PCN/admin/` et se connecter
+3. Ouvrir `https://bibliogironde.github.io/site-PCN/admin/` et se connecter
    avec le jeton.
 
 Pour des éditeurs non techniques, déployer plutôt le petit proxy
