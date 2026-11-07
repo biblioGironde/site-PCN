@@ -1,0 +1,10 @@
+---
+layout: base.njk
+---
+<article class="actualite">
+  <p class="date"><time datetime="{{ page.date | dateIso }}">{{ page.date | dateFr }}</time></p>
+  <h1>{{ title }}</h1>
+  {% if image %}<img class="couverture" src="{{ image }}" alt="">{% endif %}
+  {{ content | safe }}
+  <p><a href="/">← Toutes les actualités</a></p>
+</article>
