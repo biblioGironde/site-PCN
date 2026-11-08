@@ -37,7 +37,7 @@
   async function chargerEnDirect() {
     const exclure = new Set((config.exclure || []).map((n) => n.toLowerCase()));
     const brut = await fetch(
-      `https://api.github.com/orgs/${ORG}/repos?type=public&per_page=100&sort=pushed`
+      `https://api.github.com/users/${ORG}/repos?type=owner&per_page=100&sort=pushed`
     ).then((r) => {
       if (!r.ok) throw new Error(r.status);
       return r.json();

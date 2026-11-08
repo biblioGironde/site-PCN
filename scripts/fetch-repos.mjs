@@ -21,7 +21,7 @@ async function imagesGraphQL() {
   let after = null;
   do {
     const query = `query($org:String!,$after:String){
-      organization(login:$org){
+      repositoryOwner(login:$org){
         repositories(first:100, after:$after, privacy:PUBLIC){
           pageInfo{ hasNextPage endCursor }
           nodes{ name openGraphImageUrl }
@@ -35,7 +35,7 @@ async function imagesGraphQL() {
     });
     const json = await res.json();
     if (!res.ok || json.errors) throw new Error(JSON.stringify(json.errors || json));
-    const page = json.data.organization.repositories;
+    const page = json.data.repositoryOwner.repositories;
     for (const r of page.nodes) images[r.name] = r.openGraphImageUrl;
     after = page.pageInfo.hasNextPage ? page.pageInfo.endCursor : null;
   } while (after);
@@ -47,7 +47,7 @@ async function viaREST() {
   const repos = [];
   for (let page = 1; ; page++) {
     const res = await fetch(
-      `https://api.github.com/orgs/${ORG}/repos?type=public&per_page=100&page=${page}`,
+      `https://api.github.com/users/${ORG}/repos?type=owner&per_page=100&page=${page}`,
       { headers }
     );
     if (!res.ok) throw new Error(`REST ${res.status}: ${await res.text()}`);
