@@ -193,12 +193,12 @@ main { max-width: 72rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
 .carte-lien { display: block; text-decoration: none; }
 .carte-lien:focus-visible { outline: 3px solid var(--actif); outline-offset: 4px; border-radius: var(--rayon); }
 .vignette {
-  aspect-ratio: 2 / 1;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--bordure);
   border-radius: 2px;
 }
-.vignette img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s; }
+.vignette img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .4s; transform-origin: top; }
 .carte:hover .vignette img { transform: scale(1.04); }
 
 .corps { padding: .9rem .6rem .4rem; }

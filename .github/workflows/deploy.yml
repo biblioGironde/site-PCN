@@ -34,6 +34,12 @@ jobs:
         run: node scripts/fetch-repos.mjs _site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Capturer les pages GitHub Pages des dépôts
+        continue-on-error: true # en cas d'échec, les images GitHub restent affichées
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.63.0
+          npx playwright install --with-deps chromium
+          node scripts/capture.mjs _site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

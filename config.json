@@ -7,6 +7,12 @@
     "site-PCN"
   ],
   "afficherArchives": false,
+  "captures": {
+    "largeur": 1024,
+    "hauteur": 640,
+    "attente": 2500
+  },
+  "adresses": {},
   "categories": [
     {
       "nom": "Kits d'ateliers",

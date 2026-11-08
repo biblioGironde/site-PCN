@@ -19,7 +19,7 @@ via l'API GitHub, écrit `repos.json` et publie la page. Elle tourne :
 
 | Élément | Où le modifier |
 |---|---|
-| Vignette | Dépôt → **Settings → General → Social preview** (sinon, image générée par GitHub) |
+| Vignette | Capture d'écran automatique de la page GitHub Pages du dépôt (ou de son *Website*). Sans page en ligne : image générée par GitHub, ou *Settings → Social preview* |
 | Description | Dépôt → roue dentée **About** → *Description* |
 | Bouton « Ouvrir » | *About* → *Website* ; à défaut, l'adresse GitHub Pages si elle est activée |
 | Titre et catégorie | `config.json` (voir ci-dessous) |
@@ -32,6 +32,10 @@ via l'API GitHub, écrit `repos.json` et publie la page. Elle tourne :
 - `categories` : filtres, dans l'ordre d'affichage. Chaque dépôt prend la
   **première** catégorie dont un motif correspond à son nom (expressions
   régulières, sans distinction de casse). La dernière (`.*`) sert de « reste ».
+- `captures` : taille de la fenêtre capturée et temps d'attente (ms) avant la
+  capture, à augmenter pour les applis lentes à s'afficher.
+- `adresses` : page à capturer pour un dépôt, si ce n'est pas son adresse
+  GitHub Pages (ex. `"Kit-Podcast": "https://bibliogironde.github.io/Kit-Podcast/demo.html"`).
 - `titres` : titres lisibles pour certains dépôts. Sans entrée, le titre est
   déduit du nom (`kit-effets-speciaux` → « Kit effets speciaux »).
 
@@ -41,4 +45,5 @@ via l'API GitHub, écrit `repos.json` et publie la page. Elle tourne :
 index.html, style.css, app.js   la page
 config.json                     réglages
 scripts/fetch-repos.mjs         récupération des dépôts (lancé par l'Action)
+scripts/capture.mjs             captures d'écran des pages (lancé par l'Action)
 ```
