@@ -79,14 +79,18 @@
 
   const depots = donnees.repos.map((r) => {
     const categorie = (regles.find((c) => c.motifs.some((m) => m.test(r.name))) || { nom: "Outils" }).nom;
-    const appli = r.homepage || (r.has_pages ? `https://${ORG.toLowerCase()}.github.io/${r.name}/` : "");
+    const appli = r.page_introuvable
+      ? ""
+      : r.homepage || (r.has_pages ? `https://${ORG.toLowerCase()}.github.io/${r.name}/` : "");
+    const description = r.description || r.description_page || "";
     const titre = titreLisible(r.name);
     return {
       ...r,
+      description,
       titre,
       categorie,
       appli,
-      index: sansAccents([titre, r.name, r.description, ...(r.topics || [])].join(" ")),
+      index: sansAccents([titre, r.name, description, ...(r.topics || [])].join(" ")),
     };
   });
 
@@ -141,6 +145,7 @@
     if (!d.appli) lien.setAttribute("aria-label", `${d.titre} — code source sur GitHub`);
     const img = li.querySelector("img");
     img.src = d.image;
+    if (!d.capture) img.classList.add("repli"); // image GitHub au format 2:1
     img.onerror = () => { img.closest(".vignette").remove(); };
     li.querySelector(".categorie").textContent = d.categorie;
     li.querySelector("h2").textContent = d.titre;

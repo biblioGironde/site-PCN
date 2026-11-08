@@ -44,6 +44,15 @@ for (const r of data.repos) {
     const rep = await page.goto(url, { waitUntil: "load", timeout: opts.delai });
     if (!rep || rep.status() >= 400) throw new Error(`HTTP ${rep?.status()}`);
     await page.waitForTimeout(opts.attente);
+    // Description de repli : balise meta de la page, sinon premier paragraphe
+    if (!r.description) {
+      r.description_page = await page.evaluate(() => {
+        const meta = document.querySelector('meta[name="description"], meta[property="og:description"]');
+        const texte = meta?.content?.replace(/\s+/g, " ").trim() ||
+          [...document.querySelectorAll("main p, p")].map((p) => p.innerText.replace(/\s+/g, " ").trim()).find((t) => t.length > 40) || "";
+        return texte.length > 220 ? texte.slice(0, 217).replace(/\s+\S*$/, "") + "…" : texte;
+      });
+    }
     const fichier = `vignettes/${r.name}.jpg`;
     await page.screenshot({ path: `${dir}/${fichier}`, type: "jpeg", quality: 75 });
     r.image = fichier;
@@ -51,6 +60,7 @@ for (const r of data.repos) {
     ok++;
     console.log(`✓ ${r.name}`);
   } catch (e) {
+    if (/HTTP 404/.test(e.message)) r.page_introuvable = true; // pas de bouton « Ouvrir »
     console.warn(`✗ ${r.name} (${url}) : ${e.message.split("\n")[0]}`);
   } finally {
     await page.close();
