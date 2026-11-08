@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outils numériques biblio.gironde</title>
+  <meta name="description" content="Catalogue des applications, kits d'ateliers et utilitaires publiés par biblio.gironde sur GitHub.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="entete">
+    <h1 id="titre">Les outils numériques de biblio.gironde</h1>
+    <p id="sous-titre" class="sous-titre"></p>
+  </header>
+
+  <nav class="barre" aria-label="Filtrer les dépôts">
+    <div class="filtres" id="filtres" role="tablist"></div>
+  </nav>
+
+  <div class="outils">
+    <label class="recherche">
+      <span class="visually-hidden">Rechercher</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <input id="recherche" type="search" placeholder="Rechercher un outil…" autocomplete="off">
+    </label>
+    <label class="tri">
+      <span>Trier</span>
+      <select id="tri">
+        <option value="recent">Mis à jour récemment</option>
+        <option value="alpha">Ordre alphabétique</option>
+        <option value="nouveau">Créés récemment</option>
+      </select>
+    </label>
+    <p class="compteur" id="compteur" aria-live="polite"></p>
+  </div>
+
+  <main>
+    <div class="grille" id="grille"></div>
+    <p class="vide" id="vide" hidden>Aucun dépôt ne correspond à votre recherche.</p>
+  </main>
+
+  <footer class="pied">
+    <p>Liste générée automatiquement depuis
+      <a id="lien-org" href="https://github.com/biblioGironde">github.com/biblioGironde</a>
+      <span id="maj"></span></p>
+  </footer>
+
+  <template id="modele-carte">
+    <article class="carte">
+      <a class="carte-lien">
+        <div class="vignette"><img loading="lazy" alt=""></div>
+        <div class="corps">
+          <p class="categorie"></p>
+          <h2></h2>
+          <p class="description"></p>
+          <p class="meta"></p>
+        </div>
+      </a>
+      <div class="actions"></div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

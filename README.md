@@ -1,56 +1,44 @@
-# site-PCN — Eleventy + TinaCMS
+# Catalogue des outils numériques de biblio.gironde
 
-Petit site Eleventy (accueil, actualités, page « À propos ») publié sur GitHub Pages,
-éditable avec **TinaCMS** (offre gratuite Tina Cloud : 2 utilisateurs).
+Page qui recense automatiquement tous les dépôts publics de l'organisation
+GitHub **biblioGironde** : grille de vignettes, titre, description, filtres par
+catégorie, recherche et tri.
 
-- Site : https://bibliogironde.github.io/site-PCN/
-- Administration : https://bibliogironde.github.io/site-PCN/admin/index.html
+Adresse : https://bibliogironde.github.io/site-PCN/
 
-## Mise en service (une seule fois)
+## Comment ça marche
 
-1. **Créer le compte Tina Cloud** sur https://app.tina.io (connexion avec GitHub).
-2. **Créer un projet** : *Create Project* → *Import your site* → choisir le dépôt
-   `biblioGironde/site-PCN` (autoriser l'application Tina sur l'organisation si demandé).
-3. Dans le projet Tina Cloud :
-   - **Site URLs** : ajouter `https://bibliogironde.github.io` et `http://localhost:8080`
-   - **Overview** : copier le **Client ID**
-   - **Tokens** : copier le jeton **Content (read-only)**
-4. Dans le dépôt GitHub : **Settings → Secrets and variables → Actions → New repository secret**
-   - `TINA_PUBLIC_CLIENT_ID` = le Client ID
-   - `TINA_TOKEN` = le jeton
-5. **Settings → Pages → Source : GitHub Actions**.
-6. **Actions → Déploiement GitHub Pages → Run workflow**.
-7. Ouvrir l'administration, se connecter avec le compte Tina Cloud.
+Une GitHub Action (`.github/workflows/deploy.yml`) récupère la liste des dépôts
+via l'API GitHub, écrit `repos.json` et publie la page. Elle tourne :
+- à chaque modification de ce dépôt ;
+- chaque jour vers 6 h ;
+- à la demande : **Actions → Déploiement GitHub Pages → Run workflow**
+  (pratique juste après avoir créé un nouveau dépôt).
 
-Pour le 2ᵉ éditeur : Tina Cloud → projet → **Collaborators** → inviter.
+## Ce que chaque carte affiche
 
-## Éditer
+| Élément | Où le modifier |
+|---|---|
+| Vignette | Dépôt → **Settings → General → Social preview** (sinon, image générée par GitHub) |
+| Description | Dépôt → roue dentée **About** → *Description* |
+| Bouton « Ouvrir » | *About* → *Website* ; à défaut, l'adresse GitHub Pages si elle est activée |
+| Titre et catégorie | `config.json` (voir ci-dessous) |
 
-Dans l'administration : *Actualités*, *Pages* et *Réglages du site*.
-Chaque enregistrement crée un commit sur `main`, ce qui relance le déploiement :
-comptez 1 à 2 minutes avant de voir la modification en ligne.
+## Personnaliser (`config.json`)
 
-## Travailler en local
+- `titre`, `sousTitre` : en-tête de la page.
+- `exclure` : dépôts à ne pas afficher.
+- `afficherArchives` : afficher ou non les dépôts archivés.
+- `categories` : filtres, dans l'ordre d'affichage. Chaque dépôt prend la
+  **première** catégorie dont un motif correspond à son nom (expressions
+  régulières, sans distinction de casse). La dernière (`.*`) sert de « reste ».
+- `titres` : titres lisibles pour certains dépôts. Sans entrée, le titre est
+  déduit du nom (`kit-effets-speciaux` → « Kit effets speciaux »).
 
-```bash
-npm install
-npm run dev        # site : http://localhost:8080 — admin : http://localhost:8080/admin/index.html
-```
-
-En local, Tina écrit directement dans les fichiers, sans compte ni connexion.
-
-## Structure
+## Fichiers
 
 ```
-tina/config.ts             modèles de contenu TinaCMS (champs, dossiers)
-tina/tina-lock.json        schéma compilé, à committer (lu par Tina Cloud)
-.github/workflows/         build Tina + Eleventy, déploiement GitHub Pages
-src/_data/site.json        nom, description, pied de page
-src/_includes/             gabarits
-src/actualites/*.md        articles
-src/pages/*.md             pages fixes (URL = nom du fichier)
-src/media/                 images envoyées depuis Tina
+index.html, style.css, app.js   la page
+config.json                     réglages
+scripts/fetch-repos.mjs         récupération des dépôts (lancé par l'Action)
 ```
-
-Si vous modifiez `tina/config.ts`, lancez `npm run dev` une fois pour régénérer
-`tina/tina-lock.json`, puis committez les deux fichiers.

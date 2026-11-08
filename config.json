@@ -1,0 +1,65 @@
+{
+  "organisation": "biblioGironde",
+  "titre": "Les outils numériques de biblio.gironde",
+  "sousTitre": "Applications, kits d'ateliers et utilitaires développés pour le réseau des bibliothèques de Gironde.",
+  "exclure": [
+    ".github",
+    "site-PCN"
+  ],
+  "afficherArchives": false,
+  "categories": [
+    {
+      "nom": "Kits d'ateliers",
+      "motifs": [
+        "^kit"
+      ]
+    },
+    {
+      "nom": "Applis pédagogiques",
+      "motifs": [
+        "^apps?[A-Z_-]",
+        "^apps?$"
+      ]
+    },
+    {
+      "nom": "Statistiques",
+      "motifs": [
+        "neoscrib",
+        "looker",
+        "stat"
+      ]
+    },
+    {
+      "nom": "VR & vidéo",
+      "motifs": [
+        "vr",
+        "360",
+        "video",
+        "mapper"
+      ]
+    },
+    {
+      "nom": "Outils",
+      "motifs": [
+        ".*"
+      ]
+    }
+  ],
+  "titres": {
+    "NeoScribVisu": "NeoScrib Visu",
+    "NeoScribVisu-BM": "NeoScrib Visu — BM",
+    "NeoScribVisu-CDC": "NeoScrib Visu — CDC",
+    "liste-VR-video-360": "Liste de vidéos VR 360",
+    "Kit-AR-Livre-Augmente": "Kit Livre augmenté (AR)",
+    "Kit-Impression3D-Kit-Bib-e-lots": "Kit Impression 3D — Bib-e-lots",
+    "kit-VR-voyages-immobiles": "Kit VR — Voyages immobiles",
+    "kit-cricut-biblio-deco": "Kit Cricut — biblio.deco",
+    "Kit-Liseuses-Les-Classiques-En-Numerique-Audio": "Kit Liseuses — Les classiques en audio",
+    "Kit-Liseuses-Les-Classiques-En-Numerique": "Kit Liseuses — Les classiques en numérique",
+    "Kit-Liseuses-Classiques-au-bac": "Kit Liseuses — Classiques au bac",
+    "kit-effets-speciaux": "Kit Effets spéciaux",
+    "generateur-programme": "Générateur de programme",
+    "appSciences": "Apps Sciences",
+    "appsCinema": "Apps Cinéma"
+  }
+}

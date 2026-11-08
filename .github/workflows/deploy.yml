@@ -1,10 +1,12 @@
-# Construit le site avec Eleventy et le publie sur GitHub Pages
-# à chaque commit sur main (y compris ceux créés par TinaCMS).
+# Récupère la liste des dépôts de l'organisation et publie la page sur GitHub Pages.
+# Se lance à chaque modification, tous les jours à 6 h (heure de Paris), ou à la main.
 name: Déploiement GitHub Pages
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "7 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -24,16 +26,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci
-      # 1. Interface d'administration TinaCMS (→ _site/admin)
-      - run: npx tinacms build
+      - name: Préparer le site
+        run: |
+          mkdir -p _site
+          cp index.html style.css app.js config.json _site/
+      - name: Lister les dépôts de l'organisation
+        run: node scripts/fetch-repos.mjs _site
         env:
-          TINA_PUBLIC_CLIENT_ID: ${{ secrets.TINA_PUBLIC_CLIENT_ID }}
-          TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
-          TINA_BASE_PATH: ${{ github.event.repository.name }}
-      # 2. Site Eleventy. Préfixe = nom du dépôt (https://compte.github.io/nom-du-depot/)
-      - run: npx @11ty/eleventy --pathprefix="/${{ github.event.repository.name }}/"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
