@@ -47,3 +47,7 @@ config.json                     réglages
 scripts/fetch-repos.mjs         récupération des dépôts (lancé par l'Action)
 scripts/capture.mjs             captures d'écran des pages (lancé par l'Action)
 ```
+
+## Licences
+
+- **Code** : © Département de la Gironde — biblio.gironde, sous licence [GNU Affero General Public License v3.0](LICENSE) ou ultérieure (AGPL-3.0-or-later). Vous pouvez le réutiliser et le modifier ; toute version modifiée, redistribuée ou mise en ligne, doit être publiée sous la même licence, avec son code source.
